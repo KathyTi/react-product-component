@@ -26,6 +26,9 @@ export interface ITag{
 export interface IProduct{
     id: number;
     name: string;
+    quantity: number,
+    views: number,
+    bought: number,
     price: IPrice;
     characteristics: ICharacteristic[],
     description: string,

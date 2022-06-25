@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container} from 'react-bootstrap';
 
 export interface Props {
-    children?: React.ReactChild | React.ReactNode;
+    children?: React.ReactNode;
 }
 
 function App({children}: Props){

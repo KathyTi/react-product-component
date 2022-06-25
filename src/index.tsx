@@ -1,11 +1,13 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 //import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {IProduct, IPrice, ICharacteristic} from "./types/types";
+import {IProduct} from "./types/types";
 import ProductDetailsComponent from "./components/ProductDetailsComponent";
+import PreviewComponent from "./components/PreviewComponent";
+import './components/ProductDetailsComponent.scss';
 
     //"https://ipac67.ru/image/cache/data/product/iPhone/iPhone-13-pro/green13pro-700x700.jpg",
     //"https://ipac67.ru/image/cache/data/product/xiaomi/fd172cd0c6e5797cd3662bc88f8a8699-700x700.jpg",
@@ -22,33 +24,92 @@ import ProductDetailsComponent from "./components/ProductDetailsComponent";
 const product: IProduct = {
     id: 1,
     name: "item-name",
+    quantity: 132,
+    views: 438,
+    bought: 377,
     price: {
         retail_price: 1000
     },
     characteristics: [
         {
             id: 11,
-            title: "title-string1",
+            title: "Водонепроницаемость",
             type: "characteristic-type-string1",
-            value: 'characteristic-value1',
+            value: 'Да',
             meta: 'characteristic-meta1'
         },
         {
             id: 22,
-            title: "title-string2",
+            title: "Описание характеристики для проверки длинного текста",
             type: "characteristic-type-string2",
-            value: 'characteristic-value2',
+            value: 'Значение характеристики',
             meta: 'characteristic-meta2'
         },
         {
             id: 33,
-            title: "title-string3",
+            title: "Беспроводная зарядка",
             type: "characteristic-type-string3",
-            value: 'characteristic-value3',
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
+            meta: 'characteristic-meta3'
+        },
+        {
+            id: 33,
+            title: "Беспроводная зарядка",
+            type: "characteristic-type-string3",
+            value: 'Нет',
             meta: 'characteristic-meta3'
         },
     ],
-    description: "Товарищи! Дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития. Товарищи! постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт дальнейшее развитие различных форм деятельности позволяет оценить значение соответствующий условий активизации.",
+    description: "Товарищи! Дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития. Товарищи! постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт дальнейшее развитие различных форм деятельности позволяет оценить значение соответствующий условий активизации. Товарищи! Дальнейшее развитие различных форм деятельности обеспечивает широкому кругу (специалистов) участие в формировании дальнейших направлений развития. Товарищи! постоянный количественный рост и сфера нашей активности позволяет выполнять важные задания по разработке системы обучения кадров, соответствует насущным потребностям. Разнообразный и богатый опыт дальнейшее развитие различных форм деятельности позволяет оценить значение соответствующий условий активизации.",
     media: [
         {
             id: 111,
@@ -119,7 +180,29 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App>
-        <ProductDetailsComponent productItem={product}/>
+        <ProductDetailsComponent productItem={product}
+                                 imageModule={ <PreviewComponent media={[...product.media]}/> }
+                                 xModule={ <div style={{display: 'flex', width: '100%', backgroundColor: "violet", alignItems: 'start'}}>
+                                     <img style={{display: 'flex', objectFit: 'contain', width: '100%'}}
+                                          src={'https://img.pikbest.com/01/38/59/75EpIkbEsTUH7.jpg-0.jpg!bw700'}/>
+                                 </div> }
+                                 quantitySlot={ <div>{product.quantity}</div> }
+                                 priceSlot={ <div>{product.price.retail_price}</div> }
+                                 characteristicSlot={
+                                     <div className={'characteristic-list'}>
+                                     {
+                                         product.characteristics.map(e => {
+                                             return <div className={'characteristic-item'}>
+                                                 <div className={'characteristic-title'}>{e.title}</div>
+                                                 <div className={'characteristic-value'}>{e.value}</div>
+                                                 <div className={'divider'}> </div>
+                                             </div>
+                                         })
+                                     }
+                                     </div>
+                                 }
+                                 descriptionSlot={ <div>{product.description}</div> }
+        />
     </App>
   </React.StrictMode>
 );
