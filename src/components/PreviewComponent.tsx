@@ -1,7 +1,9 @@
-import React from "react";
-import {Image, ListGroup, ListGroupItem} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
 import {IMedia} from "../types/types";
 import './PreviewComponent.scss';
+import PreviewFullScreenWindow from "./PreviewFullScreenWindow";
+import ReactPlayer from 'react-player';
+
 
 export interface Props {
     media: IMedia[];
@@ -13,45 +15,71 @@ export interface Props {
 
 export default function PreviewComponent({media}: Props){
 
-    let currentIndex: number = 0;
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [modalState, setModalState] = useState(false);
+    //const images: any = [media.map(e => {
+    //    let path: string = e.path
+    //    return {
+    //        original: path,
+    //        thumbnail: path
+    //    }
+    //})];
+
+    let isPlay: boolean = false;
+    let isTHPlay: boolean = false;
+
     
     return(
         <div className={'preview-component'}>
-            <Image className={'product-image'} src={media[currentIndex].path}>
+            {
+                media[currentIndex].format === 'mp4'
+                ? <ReactPlayer
+                        className={'product-video'}
+                        id={'mainPlayer'}
+                        playing={isPlay}
+                        onPlay={() => isPlay = !isPlay}
+                        url={media[currentIndex].path}
+                        width={'100%'}
+                        height={'300px'}
+                        controls/>
+                : <img className={'product-image'} src={media[currentIndex].path} alt={''} onClick={() => setModalState(true)}>
 
-            </Image>
-            <ListGroup className={'product-mini-images-list'}>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[0].path}>
+                </img>
+            }
+            <div className={'product-mini-images-list'}>
+                {
+                    media.map((e, idx) =>
+                        <div className={currentIndex === idx ? 'current-list-item' : 'list-item'} key={idx}
+                             onClick={() => setCurrentIndex(idx)}>
+                            {
+                            e.format === 'mp4'
+                                ? <ReactPlayer
+                                    style={{ pointerEvents: 'none' }}
+                                    id={'thumbnailPlayer'}
+                                    className={'product-video'}
+                                    url={media[currentIndex].path}
+                                    width={'100%'} height={'64px'}
+                                    onPlay={() => isTHPlay = false}
+                                    playing={isTHPlay}
+                                    light={true}/>
+                                : <img className={'product-mini-image'} alt={''}
+                                       key={e.id}
+                                       src={e.path}>
+                                </img>
+                            }
+                        </div>
+                    )
+                }
+            </div>
+            <PreviewFullScreenWindow
+                isActive={modalState}
+                onClose={() => setModalState(false)}
+                content={media}
+                currentIndex={currentIndex}
+                onIndexChanged={(index: number) => {setCurrentIndex(index)}}
+            >
 
-                    </Image>
-                </ListGroupItem>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[1].path}>
-
-                    </Image>
-                </ListGroupItem>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[2].path}>
-
-                    </Image>
-                </ListGroupItem>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[3].path}>
-
-                    </Image>
-                </ListGroupItem>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[4].path}>
-
-                    </Image>
-                </ListGroupItem>
-                <ListGroupItem className={'list-item'}>
-                    <Image className={'product-mini-image'} src={media[5].path}>
-
-                    </Image>
-                </ListGroupItem>
-            </ListGroup>
+            </PreviewFullScreenWindow>
         </div>
     );
 }

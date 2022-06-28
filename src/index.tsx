@@ -114,8 +114,10 @@ const product: IProduct = {
         {
             id: 111,
             name: "media-name-string1",
-            format: "png",
-            path: "https://ipac67.ru/image/cache/data/product/iPhone/iPhone-13-pro/green13pro-700x700.jpg",
+            format: "mp4",
+            path: "https://www.youtube.com/watch?v=cnBYbq4p9sk&feature=youtu.be"
+            //path: "https://youtu.be/cnBYbq4p9sk"
+            //path: "https://ipac67.ru/image/cache/data/product/iPhone/iPhone-13-pro/green13pro-700x700.jpg",
         },
         {
             id: 222,
@@ -139,7 +141,7 @@ const product: IProduct = {
             id: 555,
             name: "media-name-string3",
             format: "png",
-            path: "https://ipac67.ru/image/cache/data/product/ipad/pencil21-700x700.jpg",
+            path: "https://ipac67.ru/image/cache/data/product/ipad/aks/%20Smart%20Keyboard_1-700x700.jpeg",
         },
         {
             id: 666,
@@ -183,7 +185,7 @@ root.render(
         <ProductDetailsComponent productItem={product}
                                  imageModule={ <PreviewComponent media={[...product.media]}/> }
                                  xModule={ <div style={{display: 'flex', width: '100%', backgroundColor: "violet", alignItems: 'start'}}>
-                                     <img style={{display: 'flex', objectFit: 'contain', width: '100%'}}
+                                     <img style={{display: 'flex', objectFit: 'contain', width: '100%'}} alt={''}
                                           src={'https://img.pikbest.com/01/38/59/75EpIkbEsTUH7.jpg-0.jpg!bw700'}/>
                                  </div> }
                                  quantitySlot={ <div>{product.quantity}</div> }

@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React from "react";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
