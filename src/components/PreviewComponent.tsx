@@ -3,6 +3,7 @@ import {IMedia} from "../types/types";
 import './PreviewComponent.scss';
 import PreviewFullScreenWindow from "./PreviewFullScreenWindow";
 import ReactPlayer from 'react-player';
+import IconPlayFill from './icons/IconPlayFill.svg';
 
 
 export interface Props {
@@ -17,13 +18,13 @@ export default function PreviewComponent({media}: Props){
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [modalState, setModalState] = useState(false);
-    //const images: any = [media.map(e => {
-    //    let path: string = e.path
-    //    return {
-    //        original: path,
-    //        thumbnail: path
-    //    }
-    //})];
+
+    function getYoutubePreview(r: string){
+        console.log("reference", r);
+        let result = r.substring(r.length-11, r.length);
+        console.log("result", result);
+        return `https://i3.ytimg.com/vi/${result}/maxresdefault.jpg`
+    }
 
     let isPlay: boolean = false;
     let isTHPlay: boolean = false;
@@ -52,20 +53,21 @@ export default function PreviewComponent({media}: Props){
                         <div className={currentIndex === idx ? 'current-list-item' : 'list-item'} key={idx}
                              onClick={() => setCurrentIndex(idx)}>
                             {
-                            e.format === 'mp4'
-                                ? <ReactPlayer
-                                    style={{ pointerEvents: 'none' }}
-                                    id={'thumbnailPlayer'}
-                                    className={'product-video'}
-                                    url={media[currentIndex].path}
-                                    width={'100%'} height={'64px'}
-                                    onPlay={() => isTHPlay = false}
-                                    playing={isTHPlay}
-                                    light={true}/>
-                                : <img className={'product-mini-image'} alt={''}
-                                       key={e.id}
-                                       src={e.path}>
-                                </img>
+                                <div className={'product-mini-image'}>
+                                    <img className={'image'}
+                                         alt={''}
+                                         key={e.id}
+                                         src={e.format === 'mp4' ? getYoutubePreview(e.path) : e.path}>
+                                    </img>
+                                    {e.format === 'mp4'
+                                        ? <img className={'icon-play'}
+                                              alt={''}
+                                              src={e.format === 'mp4' ? IconPlayFill : ''}>
+                                          </img>
+                                        : <> </>
+                                    }
+
+                                </div>
                             }
                         </div>
                     )

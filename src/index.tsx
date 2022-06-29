@@ -23,7 +23,7 @@ import './components/ProductDetailsComponent.scss';
 
 const product: IProduct = {
     id: 1,
-    name: "item-name",
+    name: "Имя продукта",
     quantity: 132,
     views: 438,
     bought: 377,
@@ -115,7 +115,7 @@ const product: IProduct = {
             id: 111,
             name: "media-name-string1",
             format: "mp4",
-            path: "https://www.youtube.com/watch?v=cnBYbq4p9sk&feature=youtu.be"
+            path: "https://www.youtube.com/watch?v=cnBYbq4p9sk"
             //path: "https://youtu.be/cnBYbq4p9sk"
             //path: "https://ipac67.ru/image/cache/data/product/iPhone/iPhone-13-pro/green13pro-700x700.jpg",
         },
